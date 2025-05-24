@@ -10,13 +10,13 @@ This document presents the Data Flow Diagram for the Collaborative Coding Platfo
 
 ```
 ┌─────────────────┐    User Registration/Login     ┌─────────────────────────────┐
-│                 │ ──────────────────────────────► │                             │
-│                 │                                 │                             │
+│                 │ ──────────────────────────────►│                             │
+│                 │                                │                             │
 │   Collaborators │    Project Data & Messages     │   Collaborative Coding      │
-│   (Users)       │ ◄──────────────────────────────► │   Platform                  │
-│                 │                                 │                             │
+│   (Users)       │ ◄─────────────────────────────►│     Platform                │
+│                 │                                │                             │
 │                 │    Real-time Collaboration     │                             │
-└─────────────────┘ ◄──────────────────────────────► └─────────────────────────────┘
+└─────────────────┘ ◄─────────────────────────────►└─────────────────────────────┘
                                                                     │
                                                                     │ AI Requests
                                                                     ▼
@@ -45,25 +45,25 @@ This document presents the Data Flow Diagram for the Collaborative Coding Platfo
 │  ┌─────────────┐  2. User Data   ┌─────────────┐  3. Project Data  ┌──────────┐ │
 │  │   1.0       │ ──────────────► │    D1       │ ◄──────────────── │   2.0    │ │
 │  │ Authenticate│                 │   Users     │                   │ Manage   │ │
-│  │   User      │ ◄────────────── │ Database    │ ──────────────► │ Projects │ │
-│  └─────────────┘  User Profile   └─────────────┘  User Projects   └──────────┘ │
+│  │   User      │ ◄────────────── │ Database    │ ──────────────►   │ Projects │ │
+│  └─────────────┘  User Profile   └─────────────┘  User Projects    └──────────┘ │
 │         │                                                              │        │
 │         │ Auth Token                                                   │        │
 │         ▼                                                              │        │
-│  ┌─────────────┐  4. Real-time   ┌─────────────┐  5. File Data    ┌──────────┐ │
-│  │    3.0      │ ──────────────► │    D2       │ ◄──────────────── │   4.0    │ │
-│  │ Handle      │   Messages      │  Projects   │   File Tree      │ Manage   │ │
-│  │ Real-time   │ ◄────────────── │ Database    │ ──────────────► │ Files    │ │
-│  │Collaboration│   Project Info  └─────────────┘   Project Files  └──────────┘ │
-│  └─────────────┘                                                        │        │
+│  ┌─────────────┐  4. Real-time   ┌─────────────┐  5. File Data    ┌──────────┐  │
+│  │    3.0      │ ──────────────► │    D2       │ ◄─────────────── │   4.0    │  │
+│  │ Handle      │   Messages      │  Projects   │   File Tree      │ Manage   │  │
+│  │ Real-time   │ ◄────────────── │ Database    │ ──────────────►  │ Files    │  │
+│  │Collaboration│   Project Info  └─────────────┘   Project Files  └──────────┘  │
+│  └─────────────┘                                                       │        │
 │         │                                                              │        │
 │         │ 6. AI Request                                                │        │
 │         ▼                                                              │        │
-│  ┌─────────────┐  7. AI Response ┌─────────────┐  8. Session Data ┌──────────┐ │
-│  │    5.0      │ ◄────────────── │    D3       │ ◄──────────────── │   6.0    │ │
-│  │ Process AI  │                 │   Redis     │   Token Cache    │ Manage   │ │
-│  │ Requests    │ ──────────────► │   Cache     │ ──────────────► │ Sessions │ │
-│  └─────────────┘  Cache AI Data  └─────────────┘   Auth Tokens    └──────────┘ │
+│  ┌─────────────┐  7. AI Response ┌─────────────┐  8. Session Data ┌──────────┐  │
+│  │    5.0      │ ◄────────────── │    D3       │ ◄────────────────│   6.0    │  │
+│  │ Process AI  │                 │   Redis     │   Token Cache    │ Manage   │  │
+│  │ Requests    │ ──────────────► │   Cache     │ ──────────────►  │ Sessions │  │
+│  └─────────────┘  Cache AI Data  └─────────────┘   Auth Tokens    └──────────┘  │
 │         │                                                                       │
 │         │ 9. AI Query                                                           │
 │         ▼                                                                       │
@@ -91,7 +91,7 @@ This document presents the Data Flow Diagram for the Collaborative Coding Platfo
        │
        ▼
 ┌─────────────┐    Validate     ┌─────────────┐    Hash        ┌─────────────┐
-│    1.1      │ ──────────────► │    1.2      │ ──────────────► │    1.3      │
+│    1.1      │ ──────────────► │    1.2      │ ──────────────►│    1.3      │
 │ Validate    │   Credentials   │ Hash        │   Password     │ Generate    │
 │ Input       │                 │ Password    │                │ JWT Token   │
 └─────────────┘                 └─────────────┘                └─────────────┘
@@ -100,8 +100,8 @@ This document presents the Data Flow Diagram for the Collaborative Coding Platfo
        ▼                               ▼                               ▼
 ┌─────────────┐                ┌─────────────┐                ┌─────────────┐
 │    D1       │                │    D1       │                │    D3       │
-│ Users       │ ◄────────────── │ Users       │ ──────────────► │ Redis       │
-│ Database    │   User Data     │ Database    │   Store Token  │ Cache       │
+│ Users       │ ◄────────────── │ Users       │ ─────────────►│ Redis       │
+│ Database    │   User Data     │ Database    │   Store Token │ Cache       │
 └─────────────┘                └─────────────┘                └─────────────┘
 ```
 
@@ -116,19 +116,19 @@ This document presents the Data Flow Diagram for the Collaborative Coding Platfo
        │
        ▼
 ┌─────────────┐    Project     ┌─────────────┐    Update      ┌─────────────┐
-│    2.1      │ ──────────────► │    2.2      │ ──────────────► │    2.3      │
+│    2.1      │ ─────────────► │    2.2      │ ─────────────► │    2.3      │
 │ Create/     │   Data         │ Validate    │   Project      │ Manage      │
-│ Update      │                │ Project     │   Info         │ Collaborators│
+│ Update      │                │ Project     │   Info         │Collaborators│
 │ Project     │                │ Data        │                │             │
 └─────────────┘                └─────────────┘                └─────────────┘
        │                               │                               │
        │ Project Info                  │ Validated Data                │ User List
        ▼                               ▼                               ▼
 ┌─────────────┐                ┌─────────────┐                ┌─────────────┐
-│    D2       │ ◄────────────── │    D2       │ ──────────────► │    D1       │
-│ Projects    │   Project Data  │ Projects    │   User IDs     │ Users       │
-│ Database    │                 │ Database    │                │ Database    │
-└─────────────┘                └─────────────┘                └─────────────┘
+│    D2       │ ◄────────────── │    D2       │ ────────────► │    D1       │
+│ Projects    │   Project Data  │ Projects    │   User IDs    │ Users       │
+│ Database    │                 │ Database    │               │ Database    │
+└─────────────┘                 └─────────────┘               └─────────────┘
 ```
 
 #### 2.3 Real-time Collaboration Process (Process 3.0)
@@ -142,7 +142,7 @@ This document presents the Data Flow Diagram for the Collaborative Coding Platfo
        │
        ▼
 ┌─────────────┐    Auth        ┌─────────────┐    Broadcast   ┌─────────────┐
-│    3.1      │ ──────────────► │    3.2      │ ──────────────► │    3.3      │
+│    3.1      │ ─────────────► │    3.2      │ ─────────────► │    3.3      │
 │ Authenticate│   Token        │ Join        │   Messages     │ Handle      │
 │ Socket      │                │ Project     │                │ Messages    │
 │ Connection  │                │ Room        │                │             │
@@ -168,7 +168,7 @@ This document presents the Data Flow Diagram for the Collaborative Coding Platfo
        │
        ▼
 ┌─────────────┐    Extract     ┌─────────────┐    Process     ┌─────────────┐
-│    5.1      │ ──────────────► │    5.2      │ ──────────────► │    5.3      │
+│    5.1      │ ─────────────► │    5.2      │ ─────────────► │    5.3      │
 │ Parse AI    │   Prompt       │ Call        │   AI Response  │ Format      │
 │ Request     │                │ Gemini AI   │                │ Response    │
 └─────────────┘                └─────────────┘                └─────────────┘
