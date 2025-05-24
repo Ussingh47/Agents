@@ -100,8 +100,8 @@ This document presents the Data Flow Diagram for the Collaborative Coding Platfo
        ▼                               ▼                               ▼
 ┌─────────────┐                ┌─────────────┐                ┌─────────────┐
 │    D1       │                │    D1       │                │    D3       │
-│ Users       │ ◄────────────── │ Users       │ ─────────────►│ Redis       │
-│ Database    │   User Data     │ Database    │   Store Token │ Cache       │
+│ Users       │ ◄───────────── │ Users       │ ─────────────► │ Redis       │
+│ Database    │   User Data    │ Database    │   Store Token  │ Cache       │
 └─────────────┘                └─────────────┘                └─────────────┘
 ```
 
@@ -125,10 +125,10 @@ This document presents the Data Flow Diagram for the Collaborative Coding Platfo
        │ Project Info                  │ Validated Data                │ User List
        ▼                               ▼                               ▼
 ┌─────────────┐                ┌─────────────┐                ┌─────────────┐
-│    D2       │ ◄────────────── │    D2       │ ────────────► │    D1       │
-│ Projects    │   Project Data  │ Projects    │   User IDs    │ Users       │
-│ Database    │                 │ Database    │               │ Database    │
-└─────────────┘                 └─────────────┘               └─────────────┘
+│    D2       │ ◄──────────────│    D2       │ ────────────►  │    D1       │
+│ Projects    │   Project Data │ Projects    │   User IDs     │ Users       │
+│ Database    │                │ Database    │                │ Database    │
+└─────────────┘                └─────────────┘                └─────────────┘
 ```
 
 #### 2.3 Real-time Collaboration Process (Process 3.0)
